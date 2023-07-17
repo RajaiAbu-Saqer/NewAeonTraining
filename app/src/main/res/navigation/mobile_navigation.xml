@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_splashscreen">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.newaeon.mahaapp.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.newaeon.mahaapp.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+
+        <action
+            android:id="@+id/first_naivgation"
+            app:destination="@id/navigation_maha" />
+        <action
+            android:id="@+id/second_navigation"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.newaeon.mahaapp.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment android:id="@+id/navigation_maha"
+        android:name="com.newaeon.mahaapp.ui.maha_ui.MahaFragment"
+        tools:layout="@layout/fragment_maha">
+        <action
+            android:id="@+id/action_navigation_maha_to_navigation_new"
+            app:destination="@id/navigation_new" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_new"
+        android:name="com.newaeon.mahaapp.ui.maha_ui.New"
+        android:label="new"
+        tools:layout="@layout/fragment_new"/>
+
+
+    <fragment
+        android:id="@+id/navigation_splashscreen"
+        android:name="com.newaeon.mahaapp.ui.SplashScreenFragment"
+        tools:layout="@layout/splashscreen">
+        <action
+            android:id="@+id/action_navigation_splashscreen_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+
+</navigation>
