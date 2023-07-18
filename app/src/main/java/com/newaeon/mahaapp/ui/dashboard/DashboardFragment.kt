@@ -1,5 +1,4 @@
 package com.newaeon.mahaapp.ui.dashboard
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,15 +29,12 @@ class DashboardFragment : Fragment() {
         }
         return root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.textDashboard.setOnClickListener {
             findNavController().navigate(DashboardFragmentDirections.firstNaivgation())
         }
-
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

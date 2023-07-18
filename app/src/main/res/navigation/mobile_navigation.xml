@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.newaeon.mahaapp.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
 
         <action
             android:id="@+id/first_naivgation"
@@ -31,7 +31,8 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
-    <fragment android:id="@+id/navigation_maha"
+    <fragment
+        android:id="@+id/navigation_maha"
         android:name="com.newaeon.mahaapp.ui.maha_ui.MahaFragment"
         tools:layout="@layout/fragment_maha">
         <action
@@ -43,7 +44,7 @@
         android:id="@+id/navigation_new"
         android:name="com.newaeon.mahaapp.ui.maha_ui.New"
         android:label="new"
-        tools:layout="@layout/fragment_new"/>
+        tools:layout="@layout/fragment_new" />
 
 
     <fragment
@@ -51,8 +52,19 @@
         android:name="com.newaeon.mahaapp.ui.SplashScreenFragment"
         tools:layout="@layout/splashscreen">
         <action
-            android:id="@+id/action_navigation_splashscreen_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_navigation_splashscreen_to_createaccount"
+            app:destination="@id/createaccount" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/createaccount"
+        android:name="com.newaeon.mahaapp.ui.RegistrationFragment"
+        tools:layout="@layout/registration">
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>
