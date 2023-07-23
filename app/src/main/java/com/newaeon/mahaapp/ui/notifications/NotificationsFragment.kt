@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.newaeon.mahaapp.databinding.BottomSheetBinding
 import com.newaeon.mahaapp.databinding.FragmentNotificationsBinding
+import com.newaeon.mahaapp.ui.BottomSheet
 
 class NotificationsFragment : Fragment() {
 
@@ -38,6 +40,16 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     val adapter = com.newaeon.mahaapp.ui.notifications.ListAdapter(items)
     binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.recyclerView.adapter = adapter
+
+
+
+    // Show the bottom sheet when a button is clicked (for demonstration purposes)
+    binding.btnBtmSheet.setOnClickListener {
+        val bottomSheetFragment = BottomSheet()
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    }
+
+
 }
 }
 
