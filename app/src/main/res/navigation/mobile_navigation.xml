@@ -37,9 +37,12 @@
         tools:layout="@layout/fragment_maha">
         <action
             android:id="@+id/action_navigation_maha_to_navigation_new"
-            app:destination="@id/navigation_new" />
+            app:destination="@id/fragment_news" />
     </fragment>
 
+    <fragment android:id="@+id/fragment_news"
+        android:name="com.newaeon.mahaapp.ui.News"
+        tools:layout="@layout/fragment_new"/>
     <fragment
         android:id="@+id/navigation_new"
         android:name="com.newaeon.mahaapp.ui.maha_ui.New"
@@ -68,6 +71,8 @@
             android:id="@+id/action_createaccount_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
     </fragment>
+
+
 
 
 </navigation>
