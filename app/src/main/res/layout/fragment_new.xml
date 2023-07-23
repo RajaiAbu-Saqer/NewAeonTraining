@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
 <TextView
@@ -10,13 +11,87 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="33sp"
-    android:text="new fragment"
+    android:layout_marginTop="20dp"
+    android:text="Users"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/et_full_namev"
+
     />
 
+    <TextView
+        android:id="@+id/et_full_namev"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/full_name"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_new"
+        android:layout_margin="30dp"        />
+
+    <TextView
+        android:id="@+id/et_emailregv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/et_full_namev"
+        app:layout_constraintEnd_toEndOf="@id/et_full_namev"
+        app:layout_constraintTop_toBottomOf="@id/et_full_namev"
+        android:layout_margin="30dp"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:id="@+id/et_nationalIdv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="National ID"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/et_emailregv"
+        app:layout_constraintEnd_toEndOf="@id/et_emailregv"
+        app:layout_constraintTop_toBottomOf="@id/et_emailregv"
+        android:layout_margin="30dp"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/et_phonenumberv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone Number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/et_nationalIdv"
+        app:layout_constraintEnd_toEndOf="@id/et_nationalIdv"
+        app:layout_constraintTop_toBottomOf="@id/et_nationalIdv"
+        android:layout_margin="30dp"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/et_birthv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of birth"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/et_phonenumberv"
+        app:layout_constraintEnd_toEndOf="@id/et_phonenumberv"
+        app:layout_constraintTop_toBottomOf="@id/et_phonenumberv"
+        android:layout_margin="30dp"
+        android:inputType="date"/>
+
+
+    <TextView
+        android:id="@+id/et_Passregv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/et_birthv"
+        app:layout_constraintEnd_toEndOf="@id/et_birthv"
+        app:layout_constraintTop_toBottomOf="@id/et_birthv"
+        android:layout_margin="30dp"
+        android:inputType="textPassword"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.newaeon.mahaapp.R
 import com.newaeon.mahaapp.databinding.RegistrationBinding
+import com.newaeon.mahaapp.ui.create_account.CreateAccountFragment
 
 class RegistrationFragment : Fragment() {
     //send arg from screen to another

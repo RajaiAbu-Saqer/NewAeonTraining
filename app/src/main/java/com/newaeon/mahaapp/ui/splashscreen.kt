@@ -39,8 +39,14 @@ class SplashScreenFragment: Fragment() {
         editor.putString(KEY_NAME, "John Doe")
         editor.apply()
 
+
+
+
+
         val handler = Handler(Looper.getMainLooper())
-        val runnable = Runnable { findNavController().navigate(SplashScreenFragmentDirections.actionNavigationSplashscreenToCreateaccount("Mahaaaa")) }
+        val runnable = Runnable {
+            findNavController().navigate(SplashScreenFragmentDirections.actionNavigationSplashscreenToCreateaccount("Mahaaaa"))
+        }
         handler.postDelayed(runnable, 5000);
     }
 
