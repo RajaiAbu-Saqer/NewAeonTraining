@@ -24,7 +24,7 @@ class MahaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _binding.name.setOnClickListener{
-            findNavController().navigate(MahaFragmentDirections.actionNavigationMahaToNavigationNew())
+            findNavController().navigate(MahaFragmentDirections.actionNavigationMahaToNavigationNew(null))
 
         }
     }
