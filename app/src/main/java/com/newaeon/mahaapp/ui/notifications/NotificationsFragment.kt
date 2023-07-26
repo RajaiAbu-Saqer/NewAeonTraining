@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.newaeon.mahaapp.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment() : Fragment() {
 
     private lateinit var binding: FragmentNotificationsBinding
 
@@ -30,17 +30,42 @@ class NotificationsFragment : Fragment() {
             NotificationModel("title 7", "title 8 ", "title 9 ")
 
 
-            )
+        )
 
+    fun onResume(value: String, value2: String) {
 
+        Toast.makeText(activity, "OnResume", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onResume(value: Int, value2: String) {
+
+        Toast.makeText(activity, "OnResume", Toast.LENGTH_SHORT).show()
+    }
+    companion object{
+        val sara="Sara"
+    }
+    private val maha="Sara"
+    override fun onResume() {
+        super.onResume()
+
+        Toast.makeText(activity, "OnResume", Toast.LENGTH_SHORT).show()
+    }
+
+    //    override fun onResume() {
+//        super.onResume()
+//    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = NotificationAdapter(getAdapterList(),object :NotificationAdapter.NotificationCallback{
-            override fun itemClicked(item: NotificationModel) {
-              findNavController().navigate(
-                  NotificationsFragmentDirections.actionNavigationNotificationsToFragmentNews2(item))
-            }
-        })
+        val adapter = NotificationAdapter(getAdapterList(),
+            object : NotificationAdapter.NotificationCallback {
+                override fun itemClicked(item: NotificationModel) {
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNavigationNotificationsToFragmentNews2(
+                            item
+                        )
+                    )
+                }
+            })
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 

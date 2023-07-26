@@ -11,29 +11,31 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.newaeon.mahaapp.R
 import com.newaeon.mahaapp.databinding.RegistrationBinding
 import com.newaeon.mahaapp.ui.create_account.CreateAccountFragment
+import com.newaeon.mahaapp.ui.notifications.NotificationsFragment
 
 class RegistrationFragment : Fragment() {
+
     //send arg from screen to another
     private val args by navArgs<RegistrationFragmentArgs>()
-
     private lateinit var binding: RegistrationBinding
     private val tabTitles by lazy {
         arrayOf( getString(R.string.login), getString(R.string.register))
     }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = RegistrationBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        binding = RegistrationBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = activity?.let {
             ViewPagerAdapter(it, LoginFragment(), CreateAccountFragment())
         }
+
 
         binding.viewPager.adapter = adapter
 
@@ -44,5 +46,10 @@ class RegistrationFragment : Fragment() {
 
         Toast.makeText(activity, args.name, Toast.LENGTH_SHORT).show()
 
+    }
+    fun normalFunction(){}
+
+    override fun onResume() {
+        super.onResume()
     }
 }
