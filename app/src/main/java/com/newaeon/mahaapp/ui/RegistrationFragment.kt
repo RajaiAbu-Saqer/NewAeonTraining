@@ -29,27 +29,4 @@ class RegistrationFragment : Fragment() {
 //        binding = RegistrationBinding.inflate(inflater, container, false)
 //        return binding.root
 //    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val adapter = activity?.let {
-            ViewPagerAdapter(it, LoginFragment(), CreateAccountFragment())
-        }
-
-
-        binding.viewPager.adapter = adapter
-
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = tabTitles[position]
-        }.attach()
-
-
-        Toast.makeText(activity, args.name, Toast.LENGTH_SHORT).show()
-
-    }
-    fun normalFunction(){}
-
-    override fun onResume() {
-        super.onResume()
-    }
 }
