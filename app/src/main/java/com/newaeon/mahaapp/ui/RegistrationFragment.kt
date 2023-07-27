@@ -27,6 +27,11 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = RegistrationBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val adapter = activity?.let {
             ViewPagerAdapter(it, LoginFragment(), CreateAccountFragment())
         }
@@ -40,12 +45,6 @@ class RegistrationFragment : Fragment() {
 
 
         Toast.makeText(activity, args.name, Toast.LENGTH_SHORT).show()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
 
     }
     fun normalFunction(){}
