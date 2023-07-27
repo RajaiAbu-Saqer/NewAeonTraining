@@ -13,14 +13,14 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.textDashboard.setOnClickListener {
-            findNavController().navigate(DashboardFragmentDirections.firstNaivgation())
-        }
-    }
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.textDashboard.setOnClickListener {
+//            findNavController().navigate(DashboardFragmentDirections.firstNaivgation())
+//        }
 //    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
