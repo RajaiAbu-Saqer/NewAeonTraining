@@ -16,11 +16,15 @@ class HomeViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
 
+    private val _personalResponse = MutableLiveData<Person>()
+    val personalResponse: LiveData<Person> = _personalResponse
+
+
     private val retrofitBuilder = RetrofitBuilder()
     val jokeLiveData = MutableLiveData<String>()
 
 
-  suspend  fun fetchRandomJoke(key:String) {
+    suspend fun fetchRandomJoke(key: String) {
 
         jokeLiveData.postValue("Mahaa Maliket android")
         viewModelScope.launch(Dispatchers.IO) {
@@ -29,6 +33,14 @@ class HomeViewModel : ViewModel() {
                 jokeLiveData.postValue(jokeResponse.mahaResponse)
             } catch (e: Exception) {
                 // Handle error here if needed
+            }
+        }
+
+
+        suspend fun getRandomJoke222(pageNumber: Int, recordsPerPage: Int) {
+            viewModelScope.launch(Dispatchers.IO) {
+                    val jokeResponse = retrofitBuilder.getRandomJoke222(pageNumber, recordsPerPage)
+                _personalResponse.postValue(jokeResponse)
             }
         }
     }

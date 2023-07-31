@@ -1,5 +1,5 @@
 package com.newaeon.mahaapp
 
-class NormalClass : AbstactClass() {
-
-}
+//class NormalClass : AbstactClass() {
+//
+//}

@@ -1,25 +1,50 @@
 package com.newaeon.mahaapp.network
 
 import com.newaeon.mahaapp.ui.home.JokeResponse
-import okhttp3.Response
+import com.newaeon.mahaapp.ui.home.MyColorRequestModel
+import com.newaeon.mahaapp.ui.home.MyColorResponseModel
+import com.newaeon.mahaapp.ui.home.Person
+import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("jokes/random") // path for the server URL
-    suspend fun getRandomJoke(@Header("User-Agent") key:String): JokeResponse
+    suspend fun getRandomJoke(@Header("User-Agent") key: String): JokeResponse
 
 
     @GET("jokes/random") // path for the server URL
-    suspend fun getRandomJoke2(@Query("User-Agent") key:String): JokeResponse
+    suspend fun getRandomJoke2(@Query("User-Agent") key: String): JokeResponse
+
 
 
     @POST("jokes/random") // path for the server URL
-    suspend fun getRandomJoke3(@Body key:String): JokeResponse
+    suspend fun getRandomJoke3(@Body key: String): JokeResponse
+
+
+    @GET("Admin/Items") // path for the server URL
+    suspend fun getRandomJoke222(
+        @Query("pageNumber") pageNumber: Int,
+        @Query("recordsPerPage") recordsPerPage: Int
+    ): Person
+
+
+
+    @POST("dominantColor")
+    fun setColor(
+        @Query("imageURL") imageUrl: String,
+        @Header("Authorization") authorization: String,
+        @Body  myColorRequestModel: String
+    ): MyColorResponseModel
+
+
+    @GET("api/Products/GetAll")
+    suspend fun allProducts(): GetAllProductsResponse
+
 
 }

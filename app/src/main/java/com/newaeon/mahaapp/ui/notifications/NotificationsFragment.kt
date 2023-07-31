@@ -12,7 +12,7 @@ import com.newaeon.mahaapp.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment() : Fragment() {
 
-    private lateinit var binding: FragmentNotificationsBinding
+    private  var binding: FragmentNotificationsBinding?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class NotificationsFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     private fun getAdapterList() =
@@ -66,8 +66,9 @@ class NotificationsFragment() : Fragment() {
                     )
                 }
             })
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
+
+        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.recyclerView?.adapter = adapter
 
 
         // Show the bottom sheet when a button is clicked (for demonstration purposes)

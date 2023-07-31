@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.newaeon.mahaapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
@@ -37,12 +38,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+
+        homeViewModel.personalResponse.observe(viewLifecycleOwner) {personResponse->
+            binding?.textHome?.text=personResponse.name
+        }
+
+
+        val textView: TextView = binding.textHome
+        homeViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
         homeViewModel.jokeLiveData.observe(viewLifecycleOwner) { joke ->
             // Update UI with the retrieved joke
            binding?.textHome?.text=joke
@@ -52,6 +59,7 @@ class HomeFragment : Fragment() {
 //            CoroutineScope(Dispatchers.IO).launch {
 //                homeViewModel.fetchRandomJoke("MyApp/1.0")
 //
+
 //            }
 //
 //        }
