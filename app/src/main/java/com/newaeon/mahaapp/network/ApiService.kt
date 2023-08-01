@@ -5,6 +5,8 @@ import com.newaeon.mahaapp.ui.home.MyColorRequestModel
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
+import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
+import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -45,6 +47,11 @@ interface ApiService {
 
     @GET("api/Products/GetAll")
     suspend fun allProducts(): GetAllProductsResponse
+
+
+
+    @POST("api/Customers/Login")
+   suspend fun login(@Body loginRequest: LoginRequest?): LoginResponse
 
 
 }

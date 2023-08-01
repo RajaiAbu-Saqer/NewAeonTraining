@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_product">
+    app:startDestination="@+id/navigation_sign_in">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.newaeon.mahaapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_sign_in"
+        android:name="com.newaeon.mahaapp.ui.registration.signin.SigninFragment"
+        tools:layout="@layout/fragment_signin" />
 
     <fragment
         android:id="@+id/navigation_product"
@@ -55,8 +60,8 @@
         tools:layout="@layout/fragment_new">
         <argument
             android:name="notificationModel"
-            app:nullable="true"
-            app:argType="com.newaeon.mahaapp.ui.notifications.NotificationModel" />
+            app:argType="com.newaeon.mahaapp.ui.notifications.NotificationModel"
+            app:nullable="true" />
 
     </fragment>
     <fragment
