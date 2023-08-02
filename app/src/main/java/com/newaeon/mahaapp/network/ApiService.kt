@@ -7,6 +7,8 @@ import com.newaeon.mahaapp.ui.home.Person
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
+import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
+import com.newaeon.mahaapp.ui.registration.signup.RegistrationResponseModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -53,5 +55,6 @@ interface ApiService {
     @POST("api/Customers/Login")
    suspend fun login(@Body loginRequest: LoginRequest?): LoginResponse
 
-
+    @POST("/api/Customers/Register")
+    suspend fun registration(@Body registrationRequestModel: RegistrationRequestModel?): RegistrationResponseModel
 }

@@ -1,8 +1,7 @@
 package com.newaeon.mahaapp.ui.registration.signin
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import com.newaeon.mahaapp.BaseError
 
 data class LoginRequest(
 
@@ -26,12 +25,3 @@ data class LoginData(
     @SerializedName("email") val email: String?,
     @SerializedName("token") val token: String?
 )
-
-@Parcelize
-data class BaseError(
-
-    @SerializedName("errors") val errors: String,
-    @SerializedName("message") val message: String,
-    @SerializedName("detail") val detail: String,
-    @SerializedName("innerException") val innerException: String
-) : Parcelable

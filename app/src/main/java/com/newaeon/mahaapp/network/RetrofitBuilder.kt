@@ -4,6 +4,7 @@ import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
+import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -24,4 +25,7 @@ class RetrofitBuilder {
     suspend fun getAllProduct()=apiService.allProducts()
 
     suspend fun loginUser(loginRequest: LoginRequest?)=apiService.login(loginRequest)
+    suspend fun registratonUser(registrationRequestModel: RegistrationRequestModel?)=apiService.registration(registrationRequestModel)
+
+
 }

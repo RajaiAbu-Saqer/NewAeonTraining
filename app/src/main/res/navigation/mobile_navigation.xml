@@ -3,13 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_sign_in">
+    app:startDestination="@+id/web_view">
+
+
+    <fragment
+        android:id="@+id/web_view"
+        android:name="com.newaeon.mahaapp.ui.WebViewFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/web_view" />
+
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.newaeon.mahaapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/signup"
+        android:name="com.newaeon.mahaapp.ui.registration.signup.SignUpFragment"
+        tools:layout="@layout/signup_fragment" >
+
+        <action
+            android:id="@+id/action_registration_to_navigation_product3"
+            app:destination="@id/navigation_product" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_sign_in"
