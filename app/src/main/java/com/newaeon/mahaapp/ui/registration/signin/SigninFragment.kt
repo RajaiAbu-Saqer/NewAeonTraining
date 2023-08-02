@@ -31,7 +31,7 @@ class SigninFragment : Fragment(), OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSigninBinding.inflate(inflater, container, false)
-                return binding?.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,17 +42,17 @@ class SigninFragment : Fragment(), OnClickListener {
         initiate()
 
 
-
     }
 
-    private fun initSharedPreferences(){
+    private fun initSharedPreferences() {
         // to send data from screen to another
         sharedPreferences = activity?.getSharedPreferences(
             PREFS_NAME,
             Context.MODE_PRIVATE
         );  // private to prevent share it  with another app
     }
-    private fun initiate(){
+
+    private fun initiate() {
         binding?.signIn?.setOnClickListener(this)
     }
 
@@ -60,9 +60,8 @@ class SigninFragment : Fragment(), OnClickListener {
 
         signinViewModel?.loginResponse?.observe(viewLifecycleOwner) {
             val editor = sharedPreferences!!.edit()
-            editor.putString(KEY_NAME, it?.token)
+            editor.putString(KEY_NAME, "Bearer ${it?.token}")
             editor.apply()
-
 
 
         }

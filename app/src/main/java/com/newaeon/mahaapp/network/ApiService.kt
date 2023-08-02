@@ -1,7 +1,6 @@
 package com.newaeon.mahaapp.network
 
 import com.newaeon.mahaapp.ui.home.JokeResponse
-import com.newaeon.mahaapp.ui.home.MyColorRequestModel
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
@@ -9,7 +8,6 @@ import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationResponseModel
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -26,7 +24,6 @@ interface ApiService {
     suspend fun getRandomJoke2(@Query("User-Agent") key: String): JokeResponse
 
 
-
     @POST("jokes/random") // path for the server URL
     suspend fun getRandomJoke3(@Body key: String): JokeResponse
 
@@ -38,12 +35,11 @@ interface ApiService {
     ): Person
 
 
-
     @POST("dominantColor")
     fun setColor(
         @Query("imageURL") imageUrl: String,
         @Header("Authorization") authorization: String,
-        @Body  myColorRequestModel: String
+        @Body myColorRequestModel: String
     ): MyColorResponseModel
 
 
@@ -51,10 +47,13 @@ interface ApiService {
     suspend fun allProducts(): GetAllProductsResponse
 
 
-
     @POST("api/Customers/Login")
-   suspend fun login(@Body loginRequest: LoginRequest?): LoginResponse
+    suspend fun login(@Body loginRequest: LoginRequest?): LoginResponse
 
     @POST("/api/Customers/Register")
-    suspend fun registration(@Body registrationRequestModel: RegistrationRequestModel?): RegistrationResponseModel
+    suspend fun registration(
+        @Body registrationRequestModel: RegistrationRequestModel?
+    ): RegistrationResponseModel
+
+//    @Header("Authorization") auth: String,
 }
