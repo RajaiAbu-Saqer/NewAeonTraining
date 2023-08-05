@@ -1,5 +1,6 @@
 package com.newaeon.mahaapp.network
 
+import com.newaeon.mahaapp.ui.address.CustomerAddressResponse
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
@@ -8,6 +9,7 @@ import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationResponseModel
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -56,4 +58,8 @@ interface ApiService {
     ): RegistrationResponseModel
 
 //    @Header("Authorization") auth: String,
+
+    @GET("/abco_api/api/Addresses/GetCustomerAddresses")
+   suspend fun getCustomerAddresses(): CustomerAddressResponse
+
 }

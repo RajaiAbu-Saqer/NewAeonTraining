@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.newaeon.mahaapp.databinding.FragmentSigninBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +63,7 @@ class SigninFragment : Fragment(), OnClickListener {
             val editor = sharedPreferences!!.edit()
             editor.putString(KEY_NAME, "Bearer ${it?.token}")
             editor.apply()
-
+findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
 
         }
         signinViewModel?.loginResponseError?.observe(viewLifecycleOwner) {

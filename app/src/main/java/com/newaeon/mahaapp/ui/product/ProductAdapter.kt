@@ -19,6 +19,8 @@ class ProductAdapter(private val items: List<GetAllProductsData>) :
         private val productImage: ImageView = itemView.findViewById(R.id.product_img)
 
 
+
+
         fun setData(getAllProductsData: GetAllProductsData) {
             name.text = getAllProductsData.nameEn
             description.text = getAllProductsData.descriptionEn
@@ -38,6 +40,7 @@ class ProductAdapter(private val items: List<GetAllProductsData>) :
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.product_cell, parent, false)
         return ItemViewHolder(view)
+
     }
 
     override fun getItemCount() = items.size

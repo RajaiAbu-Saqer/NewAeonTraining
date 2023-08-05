@@ -12,6 +12,7 @@ import com.newaeon.mahaapp.databinding.WebViewBinding
 
 class WebViewFragment : Fragment() {
     private var binding: WebViewBinding? = null
+    //var webview1 : WebView ?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,15 +28,15 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding?.webView?.apply {
-            settings.javaScriptEnabled = true
-            webViewClient = MyWebViewClient()
-            loadUrl("http://www.alesayidistribution.com/mobilehtml/privacy.html")
-        }
-
-
     }
+
+//   fun webview1 () {
+//
+//}
+//    fun webview2 () {
+//
+//    }
+
 
     private inner class MyWebViewClient : WebViewClient() {
         // Override URL loading to load all URLs within the WebView
@@ -44,6 +45,11 @@ class WebViewFragment : Fragment() {
             view?.loadUrl(url ?: "")
             return true
         }
+    }
+
+    interface FragmentCommunication {
+        fun webview1 ()
+        fun webview2 ()
     }
 
 }

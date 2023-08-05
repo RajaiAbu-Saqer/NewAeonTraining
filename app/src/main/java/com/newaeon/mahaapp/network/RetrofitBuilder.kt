@@ -26,4 +26,5 @@ class RetrofitBuilder {
         apiService.registration(registrationRequestModel)
 
 
+    suspend fun getUserAddresses()= apiService.getCustomerAddresses()
 }
