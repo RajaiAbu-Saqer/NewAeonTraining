@@ -4,38 +4,58 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.newaeon.mahaapp.R
-import com.newaeon.mahaapp.ui.product.GetAllProductsData
-import com.newaeon.mahaapp.ui.product.ProductAdapter
-import org.w3c.dom.Text
 
-class AddressesAdapter (private val items: List<GetCustomerAddressesData> ) :
+class AddressesAdapter(
+    private val items: List<GetCustomerAddressesData>,
+    val deleteClicked: (getAllAddresses: GetCustomerAddressesData) -> Unit,
+    val editClicked: (getAllAddresses: GetCustomerAddressesData) -> Unit
+) :
     RecyclerView.Adapter<AddressesAdapter.ItemViewHolder>() {
 
-  inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-      private val city: TextView = itemView.findViewById(R.id.tv_city)
-      private val address1: TextView = itemView.findViewById(R.id.tv_address1)
-      private val address2: TextView = itemView.findViewById(R.id.tv_address2)
-      private val longitude: TextView = itemView.findViewById(R.id.tv_longitude)
-      private val latitude: TextView = itemView.findViewById(R.id.tv_latitude)
-      private val edit: TextView = itemView.findViewById(R.id.tv_edit)
-      private val delete: TextView = itemView.findViewById(R.id.tv_delete)
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val city: TextView = itemView.findViewById(R.id.tv_city)
+        private val address1: TextView = itemView.findViewById(R.id.tv_address1)
+        private val address2: TextView = itemView.findViewById(R.id.tv_address2)
+        private val longitude: TextView = itemView.findViewById(R.id.tv_longitude)
+        private val latitude: TextView = itemView.findViewById(R.id.tv_latitude)
+        val edit: TextView = itemView.findViewById(R.id.tv_edit)
+        private val delete: TextView = itemView.findViewById(R.id.tv_delete)
 
 
-      @SuppressLint("SetTextI18n")
-      fun setData(getAllAddresses: GetCustomerAddressesData) {
-          city.text =   "City : ${getAllAddresses.city}"
-          address1.text = "Address 1 : ${getAllAddresses.address1}"
-          address2.text =  "Address 2 : ${getAllAddresses.address2}"
-          longitude.text =  "Longitude : ${getAllAddresses.longitude}"
-          latitude.text ="Latitude : ${getAllAddresses.latitude}"
-      }
-  }
+        @SuppressLint("SetTextI18n")
+        fun initHolder(getAllAddresses: GetCustomerAddressesData) {
+            city.text = "City : ${getAllAddresses.city}"
+            address1.text = "Address 1 : ${getAllAddresses.address1}"
+            address2.text = "Address 2 : ${getAllAddresses.address2}"
+            longitude.text = "Longitude : ${getAllAddresses.longitude}"
+            latitude.text = "Latitude : ${getAllAddresses.latitude}"
+            itemCLicked(getAllAddresses)
+        }
 
+        fun itemCLicked(getAllAddresses: GetCustomerAddressesData) {
+            edit.setOnClickListener {
+                editClicked.invoke(getAllAddresses)
+
+            }
+            delete.setOnClickListener {
+                deleteClicked.invoke(getAllAddresses)
+
+            }
+//            three({ one() })
+        }
+    }
+
+    //    fun three(xx:()->Int){
+//
+//    }
+//    fun one():Int{
+//        return  5
+//    }
+//    fun two(){
+//
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -45,16 +65,14 @@ class AddressesAdapter (private val items: List<GetCustomerAddressesData> ) :
             .inflate(R.layout.address_cell, parent, false)
         return ItemViewHolder(view)
     }
+
     override fun onBindViewHolder(holder: AddressesAdapter.ItemViewHolder, position: Int) {
-        holder.setData(items[position])
-
-        holder.itemView.setOnClickListener {
-
-
-        }
+        holder.initHolder(items[position])
     }
 
     override fun getItemCount() = items.size
-    }
+
+
+}
 
 

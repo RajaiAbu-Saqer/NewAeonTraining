@@ -41,6 +41,7 @@ class SigninFragment : Fragment(), OnClickListener {
         initSharedPreferences()
         observeViewModel()
         initiate()
+        checkLoggedinUser()
 
 
     }
@@ -63,6 +64,7 @@ class SigninFragment : Fragment(), OnClickListener {
             val editor = sharedPreferences!!.edit()
             editor.putString(KEY_NAME, "Bearer ${it?.token}")
             editor.apply()
+
 findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
 
         }
@@ -79,6 +81,12 @@ findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMe
             binding?.signIn?.id -> CoroutineScope(Dispatchers.IO).launch {
                 signinViewModel?.login(loginRequest())
             }
+        }
+    }
+
+    fun checkLoggedinUser(){
+        if (sharedPreferences?.getString(KEY_NAME,"")?.isNotEmpty() == true){
+            findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
         }
     }
 

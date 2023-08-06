@@ -10,13 +10,18 @@
         android:id="@+id/web_view"
         android:name="com.newaeon.mahaapp.ui.WebViewFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/web_view" />
+        tools:layout="@layout/web_view">
+        <argument
+            android:name="url"
+            app:argType="string"/>
+
+    </fragment>
 
 
     <fragment
         android:id="@+id/user_addresses"
         android:name="com.newaeon.mahaapp.ui.address.AddressListFragment"
-        tools:layout="@layout/addresses_list" >
+        tools:layout="@layout/addresses_list">
         <action
             android:id="@+id/action_user_addresses_to_edit_address"
             app:destination="@id/edit_address" />
@@ -24,19 +29,28 @@
 
     <fragment
         android:id="@+id/edit_address"
-        android:name="com.newaeon.mahaapp.ui.address.EditAddressFragment"
-        tools:layout="@layout/edit_address" />
+        android:name="com.newaeon.mahaapp.ui.address.edit.EditAddressFragment"
+        tools:layout="@layout/edit_address" >
+        <argument
+            android:name="addressInfo"
+            app:argType="com.newaeon.mahaapp.ui.address.GetCustomerAddressesData"/>
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/menu"
         android:name="com.newaeon.mahaapp.ui.MenuFragment"
-        tools:layout="@layout/menu" >
+        tools:layout="@layout/menu">
         <action
             android:id="@+id/action_menu_to_signup"
             app:destination="@id/signup" />
         <action
             android:id="@+id/action_menu_to_user_addresses"
             app:destination="@id/user_addresses" />
+        <action
+            android:id="@+id/action_menu_to_web_view"
+            app:destination="@id/web_view" />
     </fragment>
 
     <fragment
@@ -48,7 +62,7 @@
     <fragment
         android:id="@+id/signup"
         android:name="com.newaeon.mahaapp.ui.registration.signup.SignUpFragment"
-        tools:layout="@layout/signup_fragment" >
+        tools:layout="@layout/signup_fragment">
 
         <action
             android:id="@+id/action_registration_to_navigation_product3"
@@ -58,7 +72,7 @@
     <fragment
         android:id="@+id/navigation_sign_in"
         android:name="com.newaeon.mahaapp.ui.registration.signin.SigninFragment"
-        tools:layout="@layout/fragment_signin" >
+        tools:layout="@layout/fragment_signin">
         <action
             android:id="@+id/action_navigation_sign_in_to_menu"
             app:destination="@id/menu" />

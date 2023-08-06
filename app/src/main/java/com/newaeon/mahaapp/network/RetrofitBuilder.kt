@@ -1,5 +1,6 @@
 package com.newaeon.mahaapp.network
 
+import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
@@ -26,5 +27,7 @@ class RetrofitBuilder {
         apiService.registration(registrationRequestModel)
 
 
-    suspend fun getUserAddresses()= apiService.getCustomerAddresses()
+    suspend fun getUserAddresses( auth: String)= apiService.getCustomerAddresses(auth)
+
+//    suspend fun editUSerAddress(addCustomerAddressRequest: AddCustomerAddressRequest)=apiService.updateAddress()
 }

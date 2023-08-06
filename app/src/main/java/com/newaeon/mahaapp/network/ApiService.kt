@@ -1,5 +1,7 @@
 package com.newaeon.mahaapp.network
 
+import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
+import com.newaeon.mahaapp.ui.address.BooleanDataResponse
 import com.newaeon.mahaapp.ui.address.CustomerAddressResponse
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
@@ -59,7 +61,20 @@ interface ApiService {
 
 //    @Header("Authorization") auth: String,
 
-    @GET("/abco_api/api/Addresses/GetCustomerAddresses")
-   suspend fun getCustomerAddresses(): CustomerAddressResponse
+    @GET("/api/Addresses/GetCustomerAddresses")
+   suspend fun getCustomerAddresses( @Header("Authorization") auth: String): CustomerAddressResponse
+
+
+    @POST("/api/Addresses/UpdateCustomerAddress")
+   suspend fun updateAddress(@Body addCustomerAddressRequest: AddCustomerAddressRequest): BooleanDataResponse
+
+
+
 
 }
+
+// 401 unauthorized token failed
+// 400 Bad request
+// 500 internal server error
+// 404 Not found
+// 200 successfully

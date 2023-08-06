@@ -1,5 +1,7 @@
 package com.newaeon.mahaapp.ui.address
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,9 @@ import kotlinx.coroutines.launch
 class AddressListFragment : Fragment() {
     private var binding: AddressesListBinding? = null
 
+    private val PREFS_NAME = "MyPrefsFile"
+    private val KEY_NAME = "name"
+    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +36,26 @@ class AddressListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // to send data from screen to another
+        sharedPreferences = activity?.getSharedPreferences(
+            PREFS_NAME,
+            Context.MODE_PRIVATE
+        );  // private to prevent share it  with another app
+
+        val myAuthKey = sharedPreferences?.getString(KEY_NAME, "")
+
+
         val userAddressesvViewModel =
             ViewModelProvider(this)[AddressListViewModel::class.java]
         CoroutineScope(Dispatchers.IO).launch {
-            userAddressesvViewModel.getUserAdresses()
+            userAddressesvViewModel.getUserAdresses(myAuthKey ?: "")
 
         }
 
         userAddressesvViewModel.getAddresses.observe(viewLifecycleOwner) { addressResponse ->
-            addressesAdapter(addressResponse.data)
+            addressResponse.data?.let {
+                addressesAdapter(it)
+            }
         }
         userAddressesvViewModel.getAddressesError.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
@@ -48,11 +64,9 @@ class AddressListFragment : Fragment() {
 
 
     private fun addressesAdapter(items: List<GetCustomerAddressesData>) {
-        val adapter = AddressesAdapter(items)
-        binding?.recyclerView?.setOnClickListener() {
-            findNavController().navigate(AddressListFragmentDirections.actionUserAddressesToEditAddress())
-        }
-
+        val adapter = AddressesAdapter(items, deleteClicked = {}, editClicked = {
+            findNavController().navigate(AddressListFragmentDirections.actionUserAddressesToEditAddress(it))
+        })
         binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recyclerView?.adapter = adapter
 

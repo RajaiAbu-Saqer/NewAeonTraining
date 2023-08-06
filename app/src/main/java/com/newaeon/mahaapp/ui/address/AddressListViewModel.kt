@@ -20,10 +20,10 @@ class AddressListViewModel : ViewModel() {
     private val _getAddressesError = MutableLiveData<String>()
     val getAddressesError: LiveData<String> = _getAddressesError
 
-    fun getUserAdresses(){
+    fun getUserAdresses( auth: String){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userAdresses = retrofitBuilder.getUserAddresses()
+                val userAdresses = retrofitBuilder.getUserAddresses(auth)
                 _getAddresses.postValue(userAdresses)
             } catch (e: Exception) {
                 _getAddressesError.postValue(e.message.toString())
