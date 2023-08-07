@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.newaeon.mahaapp.databinding.AddressesListBinding
+import com.newaeon.mahaapp.ui.address.edit.EditAddressViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class AddressListFragment : Fragment() {
     private var binding: AddressesListBinding? = null
 
+    // shared preference for token
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "name"
     private var sharedPreferences: SharedPreferences? = null
@@ -31,7 +33,6 @@ class AddressListFragment : Fragment() {
         binding = AddressesListBinding.inflate(inflater, container, false)
         return binding?.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,6 +66,7 @@ class AddressListFragment : Fragment() {
 
     private fun addressesAdapter(items: List<GetCustomerAddressesData>) {
         val adapter = AddressesAdapter(items, deleteClicked = {}, editClicked = {
+
             findNavController().navigate(AddressListFragmentDirections.actionUserAddressesToEditAddress(it))
         })
         binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
@@ -72,4 +74,5 @@ class AddressListFragment : Fragment() {
 
 
     }
+
 }

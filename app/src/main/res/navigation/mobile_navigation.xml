@@ -34,6 +34,9 @@
         <argument
             android:name="addressInfo"
             app:argType="com.newaeon.mahaapp.ui.address.GetCustomerAddressesData"/>
+        <action
+            android:id="@+id/action_edit_address_to_user_addresses"
+            app:destination="@id/user_addresses" />
 
     </fragment>
 

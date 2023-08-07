@@ -1,5 +1,6 @@
 package com.newaeon.mahaapp.ui.address
 
+
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.newaeon.mahaapp.BaseError

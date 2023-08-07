@@ -66,7 +66,10 @@ interface ApiService {
 
 
     @POST("/api/Addresses/UpdateCustomerAddress")
-   suspend fun updateAddress(@Body addCustomerAddressRequest: AddCustomerAddressRequest): BooleanDataResponse
+   suspend fun updateAddress(
+        @Body addCustomerAddressRequest: AddCustomerAddressRequest,
+        @Header("Authorization") auth: String
+    ): BooleanDataResponse
 
 
 
