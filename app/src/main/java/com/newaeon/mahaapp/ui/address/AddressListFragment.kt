@@ -68,7 +68,8 @@ class AddressListFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
+    override fun onResume() { // used to prevent hit api every open the screen; only first time access it "if delete or edit
+        //keep the user in same scrolling
         super.onResume()
 //      if(userAddressesvViewModel?.getAddresses?.value==null)
         CoroutineScope(Dispatchers.IO).launch {

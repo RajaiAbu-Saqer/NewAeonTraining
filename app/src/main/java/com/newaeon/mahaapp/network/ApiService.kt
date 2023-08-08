@@ -7,11 +7,13 @@ import com.newaeon.mahaapp.ui.address.DeleteCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
+import com.newaeon.mahaapp.ui.orders.GetMyOrdersResponse
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationResponseModel
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -77,6 +79,10 @@ interface ApiService {
         @Header("Authorization") auth: String
     ): BooleanDataResponse
 
+    @GET("api/api/Orders/GetMyOrders")
+    suspend fun getMyOrders(
+        @Header("Authorization") auth: String
+    ): GetMyOrdersResponse
 
 }
 

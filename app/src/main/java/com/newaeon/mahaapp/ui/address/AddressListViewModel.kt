@@ -12,6 +12,7 @@ class AddressListViewModel : ViewModel() {
 
     private val retrofitBuilder = RetrofitBuilder()
 
+
     private val _getAddresses = MutableLiveData<CustomerAddressResponse>()
     val getAddresses: LiveData<CustomerAddressResponse> = _getAddresses
 
@@ -44,7 +45,7 @@ class AddressListViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val deletedAddress =
-                    retrofitBuilder.deleteCustomerAddress(deleteCustomerAddressRequest, auth)
+                    retrofitBuilder.deleteCustomerAddress(DeleteCustomerAddressRequest, auth)
                 if (deletedAddress.data == true)
                     _isAddressDeleted.postValue(getCustomerAddressesData)
             } catch (e: Exception) {
