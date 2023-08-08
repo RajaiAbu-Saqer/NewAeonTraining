@@ -10,31 +10,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.newaeon.mahaapp.databinding.EditAddressBinding
 import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
-import com.newaeon.mahaapp.ui.address.AddressListViewModel
-import com.newaeon.mahaapp.ui.registration.signin.SigninViewModel
-import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
-import com.newaeon.mahaapp.ui.registration.signup.SignUpFragmentDirections
-import com.newaeon.mahaapp.ui.registration.signup.SignupViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EditAddressFragment : Fragment() , OnClickListener{
+class EditAddressFragment : Fragment(), OnClickListener {
     private var binding: EditAddressBinding? = null
-
-     var EditAddressViewModel: EditAddressViewModel? = null
-
-
+    private var editAddressViewModel: EditAddressViewModel? = null
     private val navargs by navArgs<EditAddressFragmentArgs>()
-
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "name"
     private var sharedPreferences: SharedPreferences? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,62 +35,73 @@ class EditAddressFragment : Fragment() , OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        observeViewModel()
+        initSharedPreferences()
+    }
 
-        binding?.etCity?.setText(navargs.addressInfo.city)
-        binding?.etAddress1?.setText(navargs.addressInfo.address1)
-        binding?.etAddress2?.setText(navargs.addressInfo.address2)
-        binding?.etLongitude?.setText(navargs.addressInfo.longitude)
-        binding?.etLatitude?.setText(navargs.addressInfo.latitude)
 
+    private fun initSharedPreferences() {
         sharedPreferences = activity?.getSharedPreferences(
             PREFS_NAME,
             Context.MODE_PRIVATE
-        );  // private to prevent share it  with another app
+        )
+    }
 
-        val myAuthKey = sharedPreferences?.getString(KEY_NAME, "")
-
-
-        val editAddress =
-            ViewModelProvider(this)[EditAddressViewModel::class.java]
-        CoroutineScope(Dispatchers.IO).launch {
-            EditAddressViewModel?.updateUserAddressAPI(, myAuthKey ?: "")
-            observeViewModel()
-            initiate()
+    private fun init() {
+        binding?.apply {
+            etCity.setText(navargs.addressInfo.city)
+            etAddress1.setText(navargs.addressInfo.address1)
+            etAddress2.setText(navargs.addressInfo.address2)
+            etLongitude.setText(navargs.addressInfo.longitude)
+            etLatitude.setText(navargs.addressInfo.latitude)
+            btnSave.setOnClickListener(this@EditAddressFragment)
         }
+
     }
 
 
-    private fun initiate() {
-        binding?.btnSave?.setOnClickListener(this)
-    }
 
     private fun observeViewModel() {
-        EditAddressViewModel?.updateAddress?.observe(viewLifecycleOwner) {
-            findNavController().navigate(EditAddressFragmentDirections.actionEditAddressToUserAddresses())
+        editAddressViewModel =
+            ViewModelProvider(this)[EditAddressViewModel::class.java]
+        editAddressViewModel?.updateAddress?.observe(viewLifecycleOwner) {
+
+            CoroutineScope(Dispatchers.Main).launch {
+                if (it == true)
+                    activity?.onBackPressedDispatcher?.onBackPressed()
+                else Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show()
+
+            }
+
         }
 
-        EditAddressViewModel?.updateAddressError?.observe(viewLifecycleOwner) {
-            binding?.errorText?.text = it.toString()
+        editAddressViewModel?.updateAddressError?.observe(viewLifecycleOwner) {
+            CoroutineScope(Dispatchers.Main).launch {
+                binding?.errorText?.text = it.toString()
+
+            }
         }
     }
 
-    private suspend fun updateAddress() :AddCustomerAddressRequest {
-        EditAddressViewModel?.updateUserAddressAPI(
-            AddCustomerAddressRequest(
-                city = binding?.etCity?.text.toString(),
-                address1 = binding?.etAddress1?.text.toString(),
-                address2 = binding?.etAddress2?.text.toString(),
-                longitude = binding?.etLongitude?.text.toString(),
-                latitude = binding?.etLatitude?.text.toString(),
-
-            ),myAuthKey
-            )
-    }
+    private fun updateAddress() = AddCustomerAddressRequest(
+        city = binding?.etCity?.text.toString(),
+        address1 = binding?.etAddress1?.text.toString(),
+        address2 = binding?.etAddress2?.text.toString(),
+        longitude = binding?.etLongitude?.text.toString(),
+        latitude = binding?.etLatitude?.text.toString(),
+        contactPersonName = "Maha", contactPersonPhone = "1232141231231",
+        id = navargs.addressInfo.addressId
+    )
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             binding?.btnSave?.id -> CoroutineScope(Dispatchers.IO).launch {
-                EditAddressViewModel?.updateUserAddressAPI(updateAddress(),myAuthKey)
+                editAddressViewModel?.updateUserAddressAPI(
+                    updateAddress(),
+                    sharedPreferences?.getString(KEY_NAME, "") ?: ""
+                )
             }
+        }
     }
 }

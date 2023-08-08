@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newaeon.mahaapp.network.RetrofitBuilder
-import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,10 +16,14 @@ class AddressListViewModel : ViewModel() {
     val getAddresses: LiveData<CustomerAddressResponse> = _getAddresses
 
 
+    private val _isAddressDeleted = MutableLiveData<GetCustomerAddressesData?>()
+    val isAddressDeleted: LiveData<GetCustomerAddressesData?> = _isAddressDeleted
+
+
     private val _getAddressesError = MutableLiveData<String>()
     val getAddressesError: LiveData<String> = _getAddressesError
 
-    fun getUserAdresses( auth: String){
+    fun getUserAdresses(auth: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val userAdresses = retrofitBuilder.getUserAddresses(auth)
@@ -32,5 +35,24 @@ class AddressListViewModel : ViewModel() {
         }
 
     }
+
+    suspend fun deleteCustomerAddress(
+        getCustomerAddressesData: GetCustomerAddressesData, auth: String
+    ) {
+        val deleteCustomerAddressRequest =
+            DeleteCustomerAddressRequest(getCustomerAddressesData.addressId ?: 0)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val deletedAddress =
+                    retrofitBuilder.deleteCustomerAddress(deleteCustomerAddressRequest, auth)
+                if (deletedAddress.data == true)
+                    _isAddressDeleted.postValue(getCustomerAddressesData)
+            } catch (e: Exception) {
+                _getAddressesError.postValue(e.message.toString())
+            }
+        }
+
+    }
+
 
 }

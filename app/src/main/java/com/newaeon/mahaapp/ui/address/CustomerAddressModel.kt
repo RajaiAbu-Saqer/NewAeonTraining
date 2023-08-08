@@ -7,11 +7,11 @@ import com.newaeon.mahaapp.BaseError
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class CustomerAddressResponse (
+data class CustomerAddressResponse(
     @SerializedName("code") val code: Int?,
-    @SerializedName("data") val data: List<GetCustomerAddressesData>?,
+    @SerializedName("data") val data: ArrayList<GetCustomerAddressesData>?,
     @SerializedName("error") val error: BaseError?
-): Parcelable
+) : Parcelable
 
 
 @Parcelize
@@ -23,7 +23,7 @@ data class GetCustomerAddressesData(
     @SerializedName("address2") val address2: String?,
     @SerializedName("longitude") val longitude: String?,
     @SerializedName("latitude") val latitude: String?
-): Parcelable
+) : Parcelable
 
 
 data class BooleanDataResponse(
@@ -42,9 +42,13 @@ data class AddCustomerAddressRequest(
     val address2: String?,
     val longitude: String?,
     val latitude: String?,
-    val contactPersonName: String? = null,
-    val contactPersonPhone: String? = null,
-    var id: Int? = null
+    val contactPersonName: String?,
+    val contactPersonPhone: String?,
+    var id: Int?
 
+)
+
+data class DeleteCustomerAddressRequest(
+    val addressId: Int
 )
 

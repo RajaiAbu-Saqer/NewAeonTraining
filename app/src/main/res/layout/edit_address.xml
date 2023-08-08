@@ -1,52 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="10dp">
 
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/btn_save"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Save"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
 
- />
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Addresses"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="city"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <EditText
         android:id="@+id/et_city"
-        android:layout_marginStart="40dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_city"
+        android:layout_marginStart="40dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_city"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:ignore="MissingConstraints" />
 
@@ -54,41 +63,41 @@
         android:id="@+id/tv_address1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Address 1"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_city"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+
     <EditText
         android:id="@+id/et_address1"
-        android:layout_marginStart="90dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_address1"
+        android:layout_marginStart="90dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_address1"
         app:layout_constraintTop_toBottomOf="@id/tv_city"
         tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/tv_address2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Address 2"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address1"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_address1" />
 
     <EditText
         android:id="@+id/et_address2"
-        android:layout_marginStart="90dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_address2"
+        android:layout_marginStart="90dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_address2"
         app:layout_constraintTop_toBottomOf="@id/tv_address1"
         tools:ignore="MissingConstraints" />
 
@@ -96,20 +105,20 @@
         android:id="@+id/tv_longitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="longitude"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address2"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_address2" />
+
     <EditText
         android:id="@+id/et_longitude"
-        android:layout_marginStart="90dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_longitude"
+        android:layout_marginStart="90dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_longitude"
         app:layout_constraintTop_toBottomOf="@id/tv_address2"
         tools:ignore="MissingConstraints" />
 
@@ -118,20 +127,20 @@
         android:id="@+id/tv_latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Latitude"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_longitude"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_longitude" />
+
     <EditText
         android:id="@+id/et_latitude"
-        android:layout_marginStart="90dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_latitude"
+        android:layout_marginStart="90dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_latitude"
         app:layout_constraintTop_toBottomOf="@id/tv_longitude"
         tools:ignore="MissingConstraints" />
 

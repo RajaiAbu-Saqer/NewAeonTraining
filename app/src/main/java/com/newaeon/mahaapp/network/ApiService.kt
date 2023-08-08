@@ -3,6 +3,7 @@ package com.newaeon.mahaapp.network
 import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import com.newaeon.mahaapp.ui.address.BooleanDataResponse
 import com.newaeon.mahaapp.ui.address.CustomerAddressResponse
+import com.newaeon.mahaapp.ui.address.DeleteCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
@@ -11,7 +12,6 @@ import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationResponseModel
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -54,24 +54,28 @@ interface ApiService {
     @POST("api/Customers/Login")
     suspend fun login(@Body loginRequest: LoginRequest?): LoginResponse
 
-    @POST("/api/Customers/Register")
+    @POST("api/Customers/Register")
     suspend fun registration(
         @Body registrationRequestModel: RegistrationRequestModel?
     ): RegistrationResponseModel
 
 //    @Header("Authorization") auth: String,
 
-    @GET("/api/Addresses/GetCustomerAddresses")
-   suspend fun getCustomerAddresses( @Header("Authorization") auth: String): CustomerAddressResponse
+    @GET("api/Addresses/GetCustomerAddresses")
+    suspend fun getCustomerAddresses(@Header("Authorization") auth: String): CustomerAddressResponse
 
+
+    @POST("api/Addresses/DeleteCustomerAddress")
+    suspend fun deleteCustomerAddress(
+        @Header("Authorization") auth: String,
+        @Body deleteCustomerAddressRequest: DeleteCustomerAddressRequest?
+    ): BooleanDataResponse
 
     @POST("/api/Addresses/UpdateCustomerAddress")
-   suspend fun updateAddress(
+    suspend fun updateAddress(
         @Body addCustomerAddressRequest: AddCustomerAddressRequest,
         @Header("Authorization") auth: String
     ): BooleanDataResponse
-
-
 
 
 }

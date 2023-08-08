@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.newaeon.mahaapp.R
 
 class AddressesAdapter(
-    private val items: List<GetCustomerAddressesData>,
+     val items: ArrayList<GetCustomerAddressesData>,
     val deleteClicked: (getAllAddresses: GetCustomerAddressesData) -> Unit,
     val editClicked: (getAllAddresses: GetCustomerAddressesData) -> Unit
 ) :

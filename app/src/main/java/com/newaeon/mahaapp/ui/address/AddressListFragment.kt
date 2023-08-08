@@ -12,13 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.newaeon.mahaapp.databinding.AddressesListBinding
-import com.newaeon.mahaapp.ui.address.edit.EditAddressViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddressListFragment : Fragment() {
     private var binding: AddressesListBinding? = null
+
+    private var userAddressesvViewModel: AddressListViewModel? = null
 
     // shared preference for token
     private val PREFS_NAME = "MyPrefsFile"
@@ -43,31 +44,57 @@ class AddressListFragment : Fragment() {
             Context.MODE_PRIVATE
         );  // private to prevent share it  with another app
 
-        val myAuthKey = sharedPreferences?.getString(KEY_NAME, "")
-
-
-        val userAddressesvViewModel =
+        userAddressesvViewModel =
             ViewModelProvider(this)[AddressListViewModel::class.java]
-        CoroutineScope(Dispatchers.IO).launch {
-            userAddressesvViewModel.getUserAdresses(myAuthKey ?: "")
 
-        }
-
-        userAddressesvViewModel.getAddresses.observe(viewLifecycleOwner) { addressResponse ->
+        userAddressesvViewModel?.getAddresses?.observe(viewLifecycleOwner) { addressResponse ->
             addressResponse.data?.let {
                 addressesAdapter(it)
             }
         }
-        userAddressesvViewModel.getAddressesError.observe(viewLifecycleOwner) {
+
+        userAddressesvViewModel?.isAddressDeleted?.observe(viewLifecycleOwner) {
+            adapter?.items?.remove(it)
+            adapter?.notifyDataSetChanged()
+        }
+//        userAddressesvViewModel?.getAddresses?.observe(viewLifecycleOwner) {
+//
+//            adapter?.items?.remove(it)
+//            adapter?.notifyDataSetChanged()
+//
+//        }
+        userAddressesvViewModel?.getAddressesError?.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+//      if(userAddressesvViewModel?.getAddresses?.value==null)
+        CoroutineScope(Dispatchers.IO).launch {
+            userAddressesvViewModel?.getUserAdresses(
+                sharedPreferences?.getString(KEY_NAME, "") ?: ""
+            )
+        }
+    }
 
-    private fun addressesAdapter(items: List<GetCustomerAddressesData>) {
-        val adapter = AddressesAdapter(items, deleteClicked = {}, editClicked = {
+    private var adapter: AddressesAdapter? = null
+    private fun addressesAdapter(items: ArrayList<GetCustomerAddressesData>) {
+        adapter = AddressesAdapter(items, deleteClicked = {
+            CoroutineScope(Dispatchers.IO).launch {
+                userAddressesvViewModel?.deleteCustomerAddress(
+                    it,
+                    sharedPreferences?.getString(KEY_NAME, "") ?: ""
+                )
+            }
 
-            findNavController().navigate(AddressListFragmentDirections.actionUserAddressesToEditAddress(it))
+        }, editClicked = {
+
+            findNavController().navigate(
+                AddressListFragmentDirections.actionUserAddressesToEditAddress(
+                    it
+                )
+            )
         })
         binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recyclerView?.adapter = adapter
