@@ -45,7 +45,7 @@ class AddressListViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val deletedAddress =
-                    retrofitBuilder.deleteCustomerAddress(DeleteCustomerAddressRequest, auth)
+                    retrofitBuilder.deleteCustomerAddress(deleteCustomerAddressRequest, auth)
                 if (deletedAddress.data == true)
                     _isAddressDeleted.postValue(getCustomerAddressesData)
             } catch (e: Exception) {

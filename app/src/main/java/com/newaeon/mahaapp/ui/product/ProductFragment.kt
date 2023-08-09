@@ -1,6 +1,8 @@
 package com.newaeon.mahaapp.ui.product
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
     private var binding: FragmentProductBinding? = null
-
+    private var adapter: ProductAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,10 +42,26 @@ class ProductFragment : Fragment() {
         productViewModel.productResponseError.observe(viewLifecycleOwner) { productResponseError ->
 
         }
+
+
+        binding?.search?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter?.filter?.filter(s)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+               
+            }
+        })
     }
 
+
     private fun productAdapter(items: List<GetAllProductsData>) {
-        val adapter = ProductAdapter(items)
+        adapter = ProductAdapter(items)
         binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recyclerView?.adapter = adapter
     }

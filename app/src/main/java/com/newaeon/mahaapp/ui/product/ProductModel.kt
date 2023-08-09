@@ -2,7 +2,7 @@ package com.newaeon.mahaapp.ui.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.IgnoredOnParcel
+import com.newaeon.mahaapp.BaseError
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -10,7 +10,7 @@ data class GetAllProductsResponse(
 
     @SerializedName("code") val code: Int,
     @SerializedName("data") val data: List<GetAllProductsData>,
-    @SerializedName("error") val error: Error
+    @SerializedName("error") val error: BaseError
 ) : Parcelable
 
 

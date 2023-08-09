@@ -3,7 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_sign_in">
+    app:startDestination="@+id/navigation_product">
+
+    <fragment
+        android:id="@+id/order_details"
+        android:name="com.newaeon.mahaapp.ui.orders.OrderDetailsFragment"
+        tools:layout="@layout/order_details">
+        <argument
+            android:name="myOrdersData"
+            app:argType="com.newaeon.mahaapp.ui.orders.MyOrdersData" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/order"
+        android:name="com.newaeon.mahaapp.ui.orders.OrdersFragment"
+        tools:layout="@layout/order_list">
+        <action
+            android:id="@+id/action_order_to_order_details"
+            app:destination="@id/order_details" />
+    </fragment>
 
 
     <fragment
@@ -13,7 +33,7 @@
         tools:layout="@layout/web_view">
         <argument
             android:name="url"
-            app:argType="string"/>
+            app:argType="string" />
 
     </fragment>
 
@@ -30,10 +50,10 @@
     <fragment
         android:id="@+id/edit_address"
         android:name="com.newaeon.mahaapp.ui.address.edit.EditAddressFragment"
-        tools:layout="@layout/edit_address" >
+        tools:layout="@layout/edit_address">
         <argument
             android:name="addressInfo"
-            app:argType="com.newaeon.mahaapp.ui.address.GetCustomerAddressesData"/>
+            app:argType="com.newaeon.mahaapp.ui.address.GetCustomerAddressesData" />
         <action
             android:id="@+id/action_edit_address_to_user_addresses"
             app:destination="@id/user_addresses" />
@@ -54,6 +74,9 @@
         <action
             android:id="@+id/action_menu_to_web_view"
             app:destination="@id/web_view" />
+        <action
+            android:id="@+id/action_menu_to_order"
+            app:destination="@id/order" />
     </fragment>
 
     <fragment

@@ -73,13 +73,13 @@ interface ApiService {
         @Body deleteCustomerAddressRequest: DeleteCustomerAddressRequest?
     ): BooleanDataResponse
 
-    @POST("/api/Addresses/UpdateCustomerAddress")
+    @POST("api/Addresses/UpdateCustomerAddress")
     suspend fun updateAddress(
         @Body addCustomerAddressRequest: AddCustomerAddressRequest,
         @Header("Authorization") auth: String
     ): BooleanDataResponse
 
-    @GET("api/api/Orders/GetMyOrders")
+    @GET("api/Orders/GetMyOrders")
     suspend fun getMyOrders(
         @Header("Authorization") auth: String
     ): GetMyOrdersResponse
