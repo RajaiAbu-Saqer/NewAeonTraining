@@ -54,7 +54,7 @@ class ProductFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-               
+
             }
         })
     }
