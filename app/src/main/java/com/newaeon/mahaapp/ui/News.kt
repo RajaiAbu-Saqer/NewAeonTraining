@@ -33,7 +33,13 @@ class News : Fragment() {
         sharedPreferences = activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val jsonString = sharedPreferences?.getString(KEY_NAME, null)
         val gson = Gson()
-        jsonString?.let { gson.fromJson(it, UserInfoModel::class.java) }?.let {
+        jsonString?.let { gson.fromJson(it, UserInfoModel::class.java) }
+
+
+
+
+
+            ?.let {
             binding.etFullNamev.text = "My Name : ${it.fullname}"
             binding.etEmailregv.text = "Email : ${it.email}"
             binding.etNationalIdv.text = "National ID: ${(it.nationalID)}"

@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.Constants
+import com.newaeon.mahaapp.CryptoPrefsUtil
 import com.newaeon.mahaapp.ProgressBarLoader
 import com.newaeon.mahaapp.databinding.FragmentSigninBinding
 import kotlinx.coroutines.CoroutineScope
@@ -21,9 +23,6 @@ class SigninFragment : Fragment(), OnClickListener {
 
 
     private var progressBarLoader: ProgressBarLoader? = null
-    private val PREFS_NAME = "MyPrefsFile"
-    private val KEY_NAME = "name"
-    private var sharedPreferences: SharedPreferences? = null
 
 
     private var signinViewModel: SigninViewModel? = null
@@ -41,18 +40,9 @@ class SigninFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         progressBarLoader = ProgressBarLoader(requireContext())
         signinViewModel = ViewModelProvider(this)[SigninViewModel::class.java]
-        initSharedPreferences()
         observeViewModel()
         initiate()
         checkLoggedinUser()
-    }
-
-    private fun initSharedPreferences() {
-        // to send data from screen to another
-        sharedPreferences = activity?.getSharedPreferences(
-            PREFS_NAME,
-            Context.MODE_PRIVATE
-        );  // private to prevent share it  with another app
     }
 
     private fun initiate() {
@@ -60,12 +50,8 @@ class SigninFragment : Fragment(), OnClickListener {
     }
 
     private fun observeViewModel() {
-
         signinViewModel?.loginResponse?.observe(viewLifecycleOwner) {
-            val editor = sharedPreferences!!.edit()
-            editor.putString(KEY_NAME, "Bearer ${it?.token}")
-            editor.apply()
-
+            CryptoPrefsUtil.instance.setValue(Constants.KEY_NAME, "Bearer ${it?.token}")
             findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
 
         }
@@ -91,7 +77,7 @@ class SigninFragment : Fragment(), OnClickListener {
     }
 
     fun checkLoggedinUser() {
-        if (sharedPreferences?.getString(KEY_NAME, "")?.isNotEmpty() == true) {
+        if (CryptoPrefsUtil.instance.getString(Constants.KEY_NAME)?.isNotEmpty() == true) {
             findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
         }
     }

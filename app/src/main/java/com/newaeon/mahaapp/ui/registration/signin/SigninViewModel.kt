@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newaeon.mahaapp.BaseError
+import com.newaeon.mahaapp.Constants
+import com.newaeon.mahaapp.CryptoPrefsUtil
 import com.newaeon.mahaapp.network.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,13 +31,14 @@ class SigninViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 loginResponsess = retrofitBuilder.loginUser(loginRequest)
+//                CryptoPrefsUtil.instance.setValue(Constants.KEY_NAME, "Bearer ${loginResponsess?.data?.token}")
                 _loginRespone.postValue(loginResponsess?.data)
 
             } catch (e: Exception) {
                 _loginResponeError.postValue(loginResponsess?.baseError)
 
             }
-            finally {
+            finally { // finally execute after try and catch "always executed"
                 _showProgress.postValue(false)
             }
         }
