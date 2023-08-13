@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.ProgressBarLoader
 import com.newaeon.mahaapp.databinding.FragmentSigninBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class SigninFragment : Fragment(), OnClickListener {
 
 
+    private var progressBarLoader: ProgressBarLoader? = null
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "name"
     private var sharedPreferences: SharedPreferences? = null
@@ -37,13 +39,12 @@ class SigninFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBarLoader = ProgressBarLoader(requireContext())
         signinViewModel = ViewModelProvider(this)[SigninViewModel::class.java]
         initSharedPreferences()
         observeViewModel()
         initiate()
         checkLoggedinUser()
-
-
     }
 
     private fun initSharedPreferences() {
@@ -65,11 +66,16 @@ class SigninFragment : Fragment(), OnClickListener {
             editor.putString(KEY_NAME, "Bearer ${it?.token}")
             editor.apply()
 
-findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
+            findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
 
         }
         signinViewModel?.loginResponseError?.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+        signinViewModel?.showProgress?.observe(viewLifecycleOwner) {
+            if (it == true)
+                progressBarLoader?.show()
+            else progressBarLoader?.dismiss()
         }
     }
 
@@ -84,8 +90,8 @@ findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMe
         }
     }
 
-    fun checkLoggedinUser(){
-        if (sharedPreferences?.getString(KEY_NAME,"")?.isNotEmpty() == true){
+    fun checkLoggedinUser() {
+        if (sharedPreferences?.getString(KEY_NAME, "")?.isNotEmpty() == true) {
             findNavController().navigate(SigninFragmentDirections.actionNavigationSignInToMenu())
         }
     }

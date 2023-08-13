@@ -21,15 +21,22 @@ class SigninViewModel : ViewModel() {
     val loginResponseError: LiveData<BaseError?> = _loginResponeError
 
 
-    suspend fun login(loginRequest: LoginRequest?) {
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean> = _showProgress
 
+    suspend fun login(loginRequest: LoginRequest?) {
+        _showProgress.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 loginResponsess = retrofitBuilder.loginUser(loginRequest)
                 _loginRespone.postValue(loginResponsess?.data)
+
             } catch (e: Exception) {
                 _loginResponeError.postValue(loginResponsess?.baseError)
-                // Handle error here if needed
+
+            }
+            finally {
+                _showProgress.postValue(false)
             }
         }
     }
