@@ -21,8 +21,13 @@ class SignupViewModel : ViewModel() {
     private val _signupResponeError = MutableLiveData<BaseError?>()
     val signupResponeError: LiveData<BaseError?> = _signupResponeError
 
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean> = _showProgress
+
 
     suspend fun callSignupApi(registrationRequestModel: RegistrationRequestModel?) {
+        _showProgress.postValue(true)
+
 //        var response: RegistrationResponseModel? = null
 //        viewModelScope.launch(Dispatchers.IO) {
 //            try {
@@ -39,6 +44,9 @@ class SignupViewModel : ViewModel() {
                     _registrationResponse.postValue(data)
                 } catch (e: Exception) {
                     _signupResponeError.postValue(error)
+                }
+                finally { // finally execute after try and catch "always executed"
+                    _showProgress.postValue(false)
                 }
             }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.ProgressBarLoader
 import com.newaeon.mahaapp.databinding.SignupFragmentBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 class SignUpFragment : Fragment(), OnClickListener {
 
     private var binding: SignupFragmentBinding? = null
+    private var progressBarLoader: ProgressBarLoader? = null
 
     private var signupViewModel: SignupViewModel? = null
 
@@ -30,6 +32,7 @@ class SignUpFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBarLoader = ProgressBarLoader(requireContext())
 
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
         observeViewModel()
@@ -47,6 +50,11 @@ class SignUpFragment : Fragment(), OnClickListener {
 
         signupViewModel?.signupResponeError?.observe(viewLifecycleOwner) {
              binding?.errorText?.text = it.toString()
+        }
+        signupViewModel?.showProgress?.observe(viewLifecycleOwner) {
+            if (it == true)
+                progressBarLoader?.show()
+            else progressBarLoader?.dismiss()
         }
     }
 

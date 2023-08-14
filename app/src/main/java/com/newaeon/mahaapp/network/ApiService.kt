@@ -7,8 +7,10 @@ import com.newaeon.mahaapp.ui.address.DeleteCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.home.MyColorResponseModel
 import com.newaeon.mahaapp.ui.home.Person
+import com.newaeon.mahaapp.ui.logout.LogoutRequestModel
 import com.newaeon.mahaapp.ui.orders.GetMyOrdersResponse
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
+import com.newaeon.mahaapp.ui.profile.MyInfoResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
@@ -83,6 +85,20 @@ interface ApiService {
     suspend fun getMyOrders(
         @Header("Authorization") auth: String
     ): GetMyOrdersResponse
+
+
+
+    @POST("api/Customers/Logout")
+  suspend fun logout
+                (@Body logoutRequestModel: LogoutRequestModel?,
+                 @Header("Authorization") auth: String
+    ): BooleanDataResponse
+
+    @GET("api/Customers/GetMyInfo")
+    suspend fun getMyInfo(
+        @Header("Authorization") auth: String
+    ): MyInfoResponse
+
 
 }
 

@@ -3,6 +3,7 @@ package com.newaeon.mahaapp.network
 import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import com.newaeon.mahaapp.ui.address.DeleteCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
+import com.newaeon.mahaapp.ui.logout.LogoutRequestModel
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import retrofit2.Retrofit
@@ -48,4 +49,7 @@ class RetrofitBuilder {
 
     suspend fun getOrders(auth: String) = apiService.getMyOrders(auth)
 
+    suspend fun logoutUser(logoutRequestModel: LogoutRequestModel , auth: String) = apiService.logout(logoutRequestModel, auth)
+
+    suspend fun getUserInfo(auth: String) = apiService.getMyInfo(auth)
 }
