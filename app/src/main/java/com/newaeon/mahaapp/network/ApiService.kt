@@ -11,6 +11,8 @@ import com.newaeon.mahaapp.ui.logout.LogoutRequestModel
 import com.newaeon.mahaapp.ui.orders.GetMyOrdersResponse
 import com.newaeon.mahaapp.ui.product.GetAllProductsResponse
 import com.newaeon.mahaapp.ui.profile.MyInfoResponse
+import com.newaeon.mahaapp.ui.profile.UpdateMyInfoRequest
+import com.newaeon.mahaapp.ui.profile.UpdateMyInfoResponse
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginResponse
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
@@ -99,6 +101,12 @@ interface ApiService {
         @Header("Authorization") auth: String
     ): MyInfoResponse
 
+
+    @POST("api/Customers/UpdateMyInfo")
+    suspend fun updateMyInfo(
+        @Body updateMyInfoRequest: UpdateMyInfoRequest,
+        @Header("Authorization") auth: String
+    ): UpdateMyInfoResponse
 
 }
 

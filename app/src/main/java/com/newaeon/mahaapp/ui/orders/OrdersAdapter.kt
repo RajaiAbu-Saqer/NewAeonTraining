@@ -15,6 +15,8 @@ class OrdersAdapter(
         fun bind(myOrdersData: MyOrdersData) {
             binding.apply {
                 tvOrderNumber.text = myOrdersData.orderId.toString()
+
+                //using Enum "replace the returned value with another value
                 tvOrderStatus.text = when (myOrdersData.status) {
                     OrdersStatusEnum.ORDER_56.status -> "zzzz"
                     OrdersStatusEnum.ORDER_7.status -> "ooooo"
@@ -25,6 +27,7 @@ class OrdersAdapter(
                 tvOrderDate.text = myOrdersData.createDate.toString()
                 tvPrice.text = myOrdersData.totalPrice.toString()
 
+                // invoke used when send fun in another fun constructor
                 itemView.setOnClickListener{
                     itemViewClicked.invoke(myOrdersData)
                 }

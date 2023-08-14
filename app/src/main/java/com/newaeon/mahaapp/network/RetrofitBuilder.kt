@@ -4,10 +4,12 @@ import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import com.newaeon.mahaapp.ui.address.DeleteCustomerAddressRequest
 import com.newaeon.mahaapp.ui.home.JokeResponse
 import com.newaeon.mahaapp.ui.logout.LogoutRequestModel
+import com.newaeon.mahaapp.ui.profile.UpdateMyInfoRequest
 import com.newaeon.mahaapp.ui.registration.signin.LoginRequest
 import com.newaeon.mahaapp.ui.registration.signup.RegistrationRequestModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Header
 
 
 class RetrofitBuilder {
@@ -52,4 +54,6 @@ class RetrofitBuilder {
     suspend fun logoutUser(logoutRequestModel: LogoutRequestModel , auth: String) = apiService.logout(logoutRequestModel, auth)
 
     suspend fun getUserInfo(auth: String) = apiService.getMyInfo(auth)
+
+    suspend fun updateInfo(updateMyInfoRequest:UpdateMyInfoRequest, auth:String)=apiService.updateMyInfo(updateMyInfoRequest,auth)
 }

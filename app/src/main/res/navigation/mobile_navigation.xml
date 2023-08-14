@@ -174,7 +174,11 @@
     <fragment
         android:id="@+id/userInfo"
         android:name="com.newaeon.mahaapp.ui.profile.UserInfoFragment"
-        tools:layout="@layout/user_info" />
+        tools:layout="@layout/user_info" >
+        <action
+            android:id="@+id/action_userInfo_to_menu"
+            app:destination="@id/menu" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_splashscreen"

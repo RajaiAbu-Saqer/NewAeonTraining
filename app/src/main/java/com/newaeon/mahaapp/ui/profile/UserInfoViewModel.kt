@@ -19,6 +19,12 @@ class UserInfoViewModel : ViewModel() {
     private val _getInfoError = MutableLiveData<String?>()
     val getInfoError: LiveData<String?> = _getInfoError
 
+    private val _updateInfoResponse = MutableLiveData<UpdateMyInfoResponse?>()
+    val updateInfoResponse: LiveData<UpdateMyInfoResponse?> = _updateInfoResponse
+
+    private val _updateInfoError = MutableLiveData<String?>()
+    val updateInfoError: LiveData<String?> = _updateInfoError
+
 
     suspend fun getUserInfoData(auth: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,4 +36,17 @@ class UserInfoViewModel : ViewModel() {
             }
         }
     }
+
+
+    suspend fun updateUserInfoData(updateMyInfoRequest:UpdateMyInfoRequest, auth:String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response1 = retrofitBuilder.updateInfo(updateMyInfoRequest,auth)
+                _updateInfoResponse.postValue(response1)
+            } catch (e: Exception) {
+                _updateInfoError.postValue(e.message.toString())
+            }
+        }
+    }
+
 }

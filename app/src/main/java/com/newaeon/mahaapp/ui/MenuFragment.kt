@@ -68,14 +68,15 @@ class MenuFragment : Fragment(), OnClickListener {
             binding?.tvOrder?.id -> {findNavController().navigate(MenuFragmentDirections.actionMenuToOrder())}
 
             binding?.tvLogout?.id -> {
-                CoroutineScope(Dispatchers.IO).launch {
-                    logoutViewModel?.logoutUser(logoutRequestModel(), sharedPreferences?.getString(KEY_NAME, "") ?: "")
-                }
+                findNavController().navigate(MenuFragmentDirections.actionMenuToSignup())
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    logoutViewModel?.logoutUser(logoutRequestModel(), sharedPreferences?.getString(KEY_NAME, "") ?: "")
+//                }
             }
             binding?.tvProfile?.id -> {findNavController().navigate(MenuFragmentDirections.actionMenuToUserInfo())}
 
         }
     }
-    private fun logoutRequestModel() = LogoutRequestModel("")
+//    private fun logoutRequestModel() = LogoutRequestModel("")
 
 }

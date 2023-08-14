@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class LogoutFragment : Fragment() {
     private var binding: FragmentLogoutBinding? = null
-    private var logoutViewModel : LogoutViewModel ?= null
+    private var logoutViewModel: LogoutViewModel? = null
 
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "name"
@@ -37,11 +37,12 @@ class LogoutFragment : Fragment() {
 //        editor?.apply()
     }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            observeViewModel()
-            initSharedPreferences()
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initSharedPreferences()
+        observeViewModel()
+        callLogout()
+    }
 
 
     fun observeViewModel() {
@@ -50,13 +51,12 @@ class LogoutFragment : Fragment() {
         logoutViewModel?.logoutResponse?.observe(viewLifecycleOwner) {
 
             CoroutineScope(Dispatchers.Main).launch {
-                if (it == true) {
-                    val editor = sharedPreferences?.edit()
-                    editor?.remove("KEY_NAME")
-                    editor?.apply()
-                    findNavController().navigate(LogoutFragmentDirections.actionLogoutToSignup())
-                }
-                else Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show()
+//                if (it == true) {
+//                    val editor = sharedPreferences?.edit()
+//                    editor?.remove("KEY_NAME")
+//                    editor?.apply()
+////                    findNavController().navigate(LogoutFragmentDirections.actionLogoutToSignup())
+//                } else Toast.makeText(activity, "No", Toast.LENGTH_SHORT).show()
             }
         }
         logoutViewModel?.logoutError?.observe(viewLifecycleOwner) {
@@ -64,10 +64,26 @@ class LogoutFragment : Fragment() {
                 binding?.errorText?.text = it.toString()
             }
         }
+
+
     }
 
     fun initSharedPreferences() {
-    sharedPreferences = activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPreferences = activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     }
+
+    fun callLogout() {
+        CoroutineScope(Dispatchers.IO).launch {
+            logoutViewModel?.logoutUser(
+                logoutRequestModel(),
+                sharedPreferences?.getString(KEY_NAME, "") ?: ""
+            )
+            val editor = sharedPreferences?.edit()
+            editor?.remove("KEY_NAME")
+            editor?.apply()
+        }
+    }
+
+    fun logoutRequestModel() = LogoutRequestModel("")
 }
