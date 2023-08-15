@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.newaeon.mahaapp.MainActivity
+import com.newaeon.mahaapp.base_ui.BaseFragment
 import com.newaeon.mahaapp.databinding.AddressesListBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddressListFragment : Fragment() {
+ class AddressListFragment : BaseFragment() {
     private var binding: AddressesListBinding? = null
 
     private var userAddressesvViewModel: AddressListViewModel? = null
@@ -25,6 +27,15 @@ class AddressListFragment : Fragment() {
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "name"
     private var sharedPreferences: SharedPreferences? = null
+
+
+     override fun initToolbar() {
+         super.initToolbar()
+         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +46,12 @@ class AddressListFragment : Fragment() {
         return binding?.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
 
         // to send data from screen to another
         sharedPreferences = activity?.getSharedPreferences(
@@ -72,6 +87,7 @@ class AddressListFragment : Fragment() {
         //keep the user in same scrolling
         super.onResume()
 //      if(userAddressesvViewModel?.getAddresses?.value==null)
+
         CoroutineScope(Dispatchers.IO).launch {
             userAddressesvViewModel?.getUserAdresses(
                 sharedPreferences?.getString(KEY_NAME, "") ?: ""

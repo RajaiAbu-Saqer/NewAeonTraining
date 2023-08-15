@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,6 +35,18 @@ class UserInfoFragment : Fragment(), OnClickListener {
         init()
         observeUserInfo()
         callGetUserApi()
+        handleBackPress()
+    }
+
+    private fun handleBackPress() {
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    callUpdateInfo()
+                }
+            }
+      )
     }
 
     private fun callGetUserApi() {
@@ -56,6 +70,7 @@ class UserInfoFragment : Fragment(), OnClickListener {
                     binding?.etEmail?.setText(it?.data?.email.toString())
                     binding?.etSite?.setText(it?.data?.site.toString())
                     binding?.etBuisnessName?.setText(it?.data?.businessName.toString())
+                    binding?.etBuisnessType?.setText(it?.data?.businessType.toString())
                 }
             }
 
@@ -67,8 +82,11 @@ class UserInfoFragment : Fragment(), OnClickListener {
 
             updateInfoResponse.observe(viewLifecycleOwner) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    activity?.onBackPressedDispatcher?.onBackPressed()
-                    findNavController().navigate(UserInfoFragmentDirections.actionUserInfoToMenu())
+                    Toast.makeText(activity, "Updadted", Toast.LENGTH_SHORT).show()
+//                    activity?.onBackPressedDispatcher?.onBackPressed()
+//                    findNavController().navigate(UserInfoFragmentDirections.actionUserInfoToMenu())
+                    findNavController().popBackStack()
+
                 }
             }
 
@@ -98,13 +116,16 @@ class UserInfoFragment : Fragment(), OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            binding?.btnUpdate?.id -> CoroutineScope(Dispatchers.IO).launch {
-                userInfoViewModel?.updateUserInfoData(
-                    updateInfo(),
-                    CryptoPrefsUtil.instance.getString(Constants.KEY_NAME) ?: ""
-                )
+            binding?.btnUpdate?.id ->callUpdateInfo()
 
-            }
+        }
+    }
+    private fun callUpdateInfo(){
+        CoroutineScope(Dispatchers.IO).launch {
+            userInfoViewModel?.updateUserInfoData(
+                updateInfo(),
+                CryptoPrefsUtil.instance.getString(Constants.KEY_NAME) ?: ""
+            )
 
         }
     }
