@@ -1,18 +1,16 @@
 package com.newaeon.mahaapp.ui.profile
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.Constants
+import com.newaeon.mahaapp.CryptoPrefsUtil
 import com.newaeon.mahaapp.databinding.UserInfoBinding
-import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,10 +18,6 @@ import kotlinx.coroutines.launch
 class UserInfoFragment : Fragment(), OnClickListener {
     private var binding: UserInfoBinding? = null
     private var userInfoViewModel: UserInfoViewModel? = null
-
-    private val PREFS_NAME = "MyPrefsFile"
-    private val KEY_NAME = "name"
-    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,56 +30,55 @@ class UserInfoFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initiateSharedPrefernce()
         init()
         observeUserInfo()
-
-
+        callGetUserApi()
     }
 
-    private fun initiateSharedPrefernce() {
-        sharedPreferences = activity?.getSharedPreferences(
-            PREFS_NAME,
-            Context.MODE_PRIVATE
-        )
-    }
+    private fun callGetUserApi() {
+        CoroutineScope(Dispatchers.IO).launch {
+            userInfoViewModel?.getUserInfoData(
+                CryptoPrefsUtil.instance.getString(Constants.KEY_NAME) ?: ""
+            )
+        }
 
+    }
 
     private fun observeUserInfo() {
         userInfoViewModel = ViewModelProvider(this)[UserInfoViewModel::class.java]
 
+        userInfoViewModel?.apply {
+            getInfoResponse.observe(viewLifecycleOwner) {
+                CoroutineScope(Dispatchers.Main).launch {
 
-        userInfoViewModel?.getInfoResponse?.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.Main).launch {
-                userInfoViewModel!!.getUserInfoData(
-                    sharedPreferences?.getString(KEY_NAME, "") ?: ""
-                )
-                binding?.etName?.setText(it?.data?.name.toString())
-                binding?.etNumber?.setText(it?.data?.mobileNumber.toString())
-                binding?.etEmail?.setText(it?.data?.email.toString())
-                binding?.etSite?.setText(it?.data?.site.toString())
-                binding?.etBuisnessName?.setText(it?.data?.businessName.toString())
+                    binding?.etName?.setText(it?.data?.name.toString())
+                    binding?.etNumber?.setText(it?.data?.mobileNumber.toString())
+                    binding?.etEmail?.setText(it?.data?.email.toString())
+                    binding?.etSite?.setText(it?.data?.site.toString())
+                    binding?.etBuisnessName?.setText(it?.data?.businessName.toString())
+                }
+            }
+
+            getInfoError.observe(viewLifecycleOwner) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding?.errorText?.text = it.toString()
+                }
+            }
+
+            updateInfoResponse.observe(viewLifecycleOwner) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    activity?.onBackPressedDispatcher?.onBackPressed()
+                    findNavController().navigate(UserInfoFragmentDirections.actionUserInfoToMenu())
+                }
+            }
+
+            updateInfoError.observe(viewLifecycleOwner) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding?.errorText?.text = it.toString()
+                }
             }
         }
 
-        userInfoViewModel?.getInfoError?.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.Main).launch {
-                binding?.errorText?.text = it.toString()
-            }
-        }
-
-        userInfoViewModel?.updateInfoResponse?.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.Main).launch {
-                activity?.onBackPressedDispatcher?.onBackPressed()
-                findNavController().navigate(UserInfoFragmentDirections.actionUserInfoToMenu())
-            }
-        }
-
-        userInfoViewModel?.updateInfoError?.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.Main).launch {
-                binding?.errorText?.text = it.toString()
-            }
-        }
     }
 
 
@@ -108,7 +101,7 @@ class UserInfoFragment : Fragment(), OnClickListener {
             binding?.btnUpdate?.id -> CoroutineScope(Dispatchers.IO).launch {
                 userInfoViewModel?.updateUserInfoData(
                     updateInfo(),
-                    sharedPreferences?.getString(KEY_NAME, "") ?: ""
+                    CryptoPrefsUtil.instance.getString(Constants.KEY_NAME) ?: ""
                 )
 
             }

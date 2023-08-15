@@ -107,7 +107,6 @@ interface ApiService {
         @Body updateMyInfoRequest: UpdateMyInfoRequest,
         @Header("Authorization") auth: String
     ): UpdateMyInfoResponse
-
 }
 
 // 401 unauthorized token failed

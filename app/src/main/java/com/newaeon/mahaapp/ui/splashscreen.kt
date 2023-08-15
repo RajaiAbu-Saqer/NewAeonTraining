@@ -20,10 +20,10 @@ class SplashScreenFragment : Fragment() {
     private var videoView: VideoView? = null
 
 
-    // to send data from screen to another
-    private val PREFS_NAME = "MyPrefsFile"
-    private val KEY_NAME = "name"
-    private var sharedPreferences: SharedPreferences? = null
+//    // to send data from screen to another
+//    private val PREFS_NAME = "MyPrefsFile"
+//    private val KEY_NAME = "name"
+//    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,13 +39,13 @@ class SplashScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // to send data from screen to another
-        sharedPreferences = activity?.getSharedPreferences(
-            PREFS_NAME,
-            Context.MODE_PRIVATE
-        );  // private to prevent share it  with another app
-        val editor = sharedPreferences!!.edit()
-        editor.putString(KEY_NAME, "John Doe")
-        editor.apply()
+//        sharedPreferences = activity?.getSharedPreferences(
+//            PREFS_NAME,
+//            Context.MODE_PRIVATE
+//        );  // private to prevent share it  with another app
+//        val editor = sharedPreferences!!.edit()
+//        editor.putString(KEY_NAME, "John Doe")
+//        editor.apply()
         playVideo()
 //        val handler = Handler(Looper.getMainLooper())
 //        val runnable = Runnable {

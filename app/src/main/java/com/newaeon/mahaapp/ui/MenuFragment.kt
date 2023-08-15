@@ -1,17 +1,18 @@
 package com.newaeon.mahaapp.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.Constants
+import com.newaeon.mahaapp.CryptoPrefsUtil
 import com.newaeon.mahaapp.databinding.MenuBinding
-import com.newaeon.mahaapp.ui.address.AddCustomerAddressRequest
 import com.newaeon.mahaapp.ui.logout.LogoutRequestModel
 import com.newaeon.mahaapp.ui.logout.LogoutViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -20,14 +21,7 @@ import kotlinx.coroutines.launch
 
 class MenuFragment : Fragment(), OnClickListener {
     private var binding: MenuBinding? = null
-    private var logoutViewModel : LogoutViewModel?= null
-
-
-    private val PREFS_NAME = "MyPrefsFile"
-    private val KEY_NAME = "name"
-    private var sharedPreferences: SharedPreferences? = null
-
-
+    private var logoutViewModel: LogoutViewModel? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,9 +35,8 @@ class MenuFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
         init()
+        observeViewModel()
     }
 
     private fun init() {
@@ -57,26 +50,62 @@ class MenuFragment : Fragment(), OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            binding?.tvPrivacyPolicy?.id -> findNavController().navigate(MenuFragmentDirections.actionMenuToWebView("http://www.alesayidistribution.com/mobilehtml/privacy.html"))
+            binding?.tvPrivacyPolicy?.id -> findNavController().navigate(
+                MenuFragmentDirections.actionMenuToWebView(
+                    "http://www.alesayidistribution.com/mobilehtml/privacy.html"
+                )
+            )
 
 
-            binding?.tvAboutUs?.id -> findNavController().navigate(MenuFragmentDirections.actionMenuToWebView("http://www.alesayidistribution.com/mobilehtml/privacy.html"))
+            binding?.tvAboutUs?.id -> findNavController().navigate(
+                MenuFragmentDirections.actionMenuToWebView(
+                    "http://www.alesayidistribution.com/mobilehtml/privacy.html"
+                )
+            )
 
             binding?.tvAddress?.id -> {
                 findNavController().navigate(MenuFragmentDirections.actionMenuToUserAddresses())
             }
-            binding?.tvOrder?.id -> {findNavController().navigate(MenuFragmentDirections.actionMenuToOrder())}
 
-            binding?.tvLogout?.id -> {
-                findNavController().navigate(MenuFragmentDirections.actionMenuToSignup())
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    logoutViewModel?.logoutUser(logoutRequestModel(), sharedPreferences?.getString(KEY_NAME, "") ?: "")
-//                }
+            binding?.tvOrder?.id -> {
+                findNavController().navigate(MenuFragmentDirections.actionMenuToOrder())
             }
-            binding?.tvProfile?.id -> {findNavController().navigate(MenuFragmentDirections.actionMenuToUserInfo())}
+
+            binding?.tvLogout?.id -> callLogout()
+            binding?.tvProfile?.id -> findNavController().navigate(MenuFragmentDirections.actionMenuToUserInfo())
+
 
         }
     }
-//    private fun logoutRequestModel() = LogoutRequestModel("")
 
+    private fun observeViewModel() {
+        logoutViewModel =
+            ViewModelProvider(this)[LogoutViewModel::class.java]
+        logoutViewModel?.logoutResponse?.observe(viewLifecycleOwner) {
+
+            CoroutineScope(Dispatchers.Main).launch {
+                CryptoPrefsUtil.instance.clearLogoutSessions()
+                findNavController().navigate(MenuFragmentDirections.actionMenuToSignup())
+
+            }
+        }
+        logoutViewModel?.logoutError?.observe(viewLifecycleOwner) {
+            CoroutineScope(Dispatchers.Main).launch {
+                Toast.makeText(activity, it.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+    }
+
+    private fun callLogout() {
+        CoroutineScope(Dispatchers.IO).launch {
+            logoutViewModel?.logoutUser(
+                logoutRequestModel(),
+                CryptoPrefsUtil.instance.getString(Constants.KEY_NAME) ?: ""
+            )
+        }
+    }
+
+    private fun logoutRequestModel() = LogoutRequestModel("")
 }

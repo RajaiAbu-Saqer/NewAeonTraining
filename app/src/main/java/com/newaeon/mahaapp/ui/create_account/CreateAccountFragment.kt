@@ -19,7 +19,6 @@ class CreateAccountFragment : Fragment() ,OnClickListener{
 
     // send data from screen to another
     private val PREFS_NAME = "MyPrefsFile"
-    private val KEY_NAME = "name"
     private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(

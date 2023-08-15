@@ -67,7 +67,10 @@
         tools:layout="@layout/menu">
         <action
             android:id="@+id/action_menu_to_signup"
-            app:destination="@id/signup" />
+            app:destination="@id/signup"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"/>
+
         <action
             android:id="@+id/action_menu_to_user_addresses"
             app:destination="@id/user_addresses" />
@@ -111,16 +114,6 @@
         android:id="@+id/navigation_product"
         android:name="com.newaeon.mahaapp.ui.product.ProductFragment"
         tools:layout="@layout/fragment_product" />
-
-    <fragment
-        android:id="@+id/logout"
-        android:name="com.newaeon.mahaapp.ui.logout.LogoutFragment"
-        tools:layout="@layout/fragment_logout" >
-        <action
-            android:id="@+id/action_logout_to_signup"
-            app:destination="@id/signup" />
-    </fragment>
-
 
     <fragment
         android:id="@+id/navigation_dashboard"

@@ -14,6 +14,7 @@ class CryptoPrefsUtil {
                 return INSTANCE
             }
     }
+
     private val prefs = ContextUtil.instance?.getSharedPreferences(
         Constants.PREFERENCES_FILE_NAME,
         Context.MODE_PRIVATE
@@ -42,4 +43,8 @@ class CryptoPrefsUtil {
         return gson.fromJson(json, classOfT)
     }
 
+    fun clearLogoutSessions() {
+//        setValue(Constants.KEY_NAME,"")
+        prefs?.edit()?.remove(Constants.KEY_NAME)?.apply()
+    }
 }
