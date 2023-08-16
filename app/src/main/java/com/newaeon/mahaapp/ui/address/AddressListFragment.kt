@@ -29,13 +29,13 @@ import kotlinx.coroutines.launch
     private var sharedPreferences: SharedPreferences? = null
 
 
-     override fun initToolbar() {
-         super.initToolbar()
-         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
-         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
-         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
-         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
-     }
+//     override fun initToolbar() {
+//         super.initToolbar()
+//         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+//         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+//         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+//         (activity as MainActivity).setTitleToolbar("eofjewifjewi")
+//     }
 
     override fun onCreateView(
         inflater: LayoutInflater,

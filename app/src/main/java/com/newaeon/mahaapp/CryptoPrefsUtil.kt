@@ -3,7 +3,7 @@ package com.newaeon.mahaapp
 import android.content.Context
 import com.google.gson.Gson
 
-class CryptoPrefsUtil {
+class CryptoPrefsUtil() {
     companion object {
         private lateinit var INSTANCE: CryptoPrefsUtil
         val instance: CryptoPrefsUtil

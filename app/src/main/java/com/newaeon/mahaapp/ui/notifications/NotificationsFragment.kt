@@ -5,14 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.newaeon.mahaapp.MainActivity
+import com.newaeon.mahaapp.base_ui.BaseFragment
 import com.newaeon.mahaapp.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment() : Fragment() {
+class NotificationsFragment : BaseFragment() {
 
-    private  var binding: FragmentNotificationsBinding?=null
+    private var binding: FragmentNotificationsBinding? = null
+
+    override fun initToolbar() {
+        super.initToolbar()
+//        toolbarVisibility(true)
+        setToolbarTitle("Maha")
+
+
+        toolbarCartButton {
+            Toast.makeText(activity, "Cart", Toast.LENGTH_SHORT).show()
+        }
+
+//       mainActivity.mainBinding?.toolbar?.toolbarConstrain?.isVisible = false
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,10 +58,12 @@ class NotificationsFragment() : Fragment() {
 
         Toast.makeText(activity, "OnResume", Toast.LENGTH_SHORT).show()
     }
-    companion object{
-        val sara="Sara"
+
+    companion object {
+        val sara = "Sara"
     }
-    private val maha="Sara"
+
+    private val maha = "Sara"
     override fun onResume() {
         super.onResume()
 
