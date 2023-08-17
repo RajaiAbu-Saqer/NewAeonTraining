@@ -10,10 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
+import com.newaeon.mahaapp.base_ui.BaseFragment
 import com.newaeon.mahaapp.databinding.FragmentNewBinding
 import com.newaeon.mahaapp.ui.create_account.UserInfoModel
 
-class News : Fragment() {
+class News : BaseFragment() {
     private lateinit var binding: FragmentNewBinding
     private val PREFS_NAME = "MyPrefsFile"
     private val KEY_NAME = "KEY_MY_DATA"

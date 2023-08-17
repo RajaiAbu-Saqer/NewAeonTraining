@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.newaeon.mahaapp.ProgressBarLoader
 import com.newaeon.mahaapp.R
 import com.newaeon.mahaapp.databinding.ActivityMainBinding
+import com.newaeon.mahaapp.ui.dashboard.DashboardFragment
+import com.newaeon.mahaapp.ui.home.HomeFragment
+import com.newaeon.mahaapp.ui.notifications.NotificationsFragment
 
 open class BaseActivity : AppCompatActivity() {
     var mainBinding: ActivityMainBinding? = null
@@ -23,12 +27,17 @@ open class BaseActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
-}
 
-//    override fun onBackPressed() {
-//        if(currentFragment())
-//
-//
-//            super.onBackPressed()
-//    }
-//}
+
+    private fun getCurrentFragment() =
+        supportFragmentManager.fragments[0].childFragmentManager.fragments[0]
+
+    fun isMainFragments() =
+        getCurrentFragment() is NotificationsFragment || getCurrentFragment() is DashboardFragment || getCurrentFragment() is HomeFragment
+
+    override fun onBackPressed() {
+        if (isMainFragments()) moveTaskToBack(true)
+        else onBackPressedDispatcher.onBackPressed()
+    }
+
+}

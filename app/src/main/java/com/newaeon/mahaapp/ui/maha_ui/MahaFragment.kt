@@ -7,9 +7,10 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.newaeon.mahaapp.base_ui.BaseFragment
 import com.newaeon.mahaapp.databinding.FragmentMahaBinding
 
-class MahaFragment : Fragment() {
+class MahaFragment : BaseFragment() {
     private lateinit var _binding: FragmentMahaBinding
     override fun onCreateView(
         inflater: LayoutInflater,

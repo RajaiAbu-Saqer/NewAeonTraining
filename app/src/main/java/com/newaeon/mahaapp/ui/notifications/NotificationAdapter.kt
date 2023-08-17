@@ -42,11 +42,7 @@ class NotificationAdapter(private val items: List<NotificationModel>,val notific
 //            itemButton.setOnClickListener {
 //                notificationCallback.itemClicked(item)
 //            }
-            itemButton.setOnClickListener(object :View.OnClickListener{
-                override fun onClick(v: View?) {
-                    TODO("Not yet implemented")
-                }
-            })
+//            itemButton.setOnClickListener { TODO("Not yet implemented") }
         }
     }
 

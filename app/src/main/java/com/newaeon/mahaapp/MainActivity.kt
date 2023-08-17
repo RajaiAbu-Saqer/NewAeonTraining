@@ -10,8 +10,6 @@ import com.newaeon.mahaapp.ui.dashboard.DashboardFragment
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CryptoPrefsUtil.instance.setValue()
-
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications

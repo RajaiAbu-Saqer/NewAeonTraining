@@ -1,30 +1,22 @@
 package com.newaeon.mahaapp.ui.registration.signin
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.newaeon.mahaapp.Constants
 import com.newaeon.mahaapp.CryptoPrefsUtil
-import com.newaeon.mahaapp.ProgressBarLoader
+import com.newaeon.mahaapp.base_ui.BaseFragment
 import com.newaeon.mahaapp.databinding.FragmentSigninBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SigninFragment : Fragment(), OnClickListener {
-
-
-    private var progressBarLoader: ProgressBarLoader? = null
-
-
+class SigninFragment : BaseFragment(), OnClickListener {
     private var signinViewModel: SigninViewModel? = null
     private var binding: FragmentSigninBinding? = null
     override fun onCreateView(
@@ -38,7 +30,7 @@ class SigninFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBarLoader = ProgressBarLoader(requireContext())
+
         signinViewModel = ViewModelProvider(this)[SigninViewModel::class.java]
         observeViewModel()
         initiate()
@@ -60,8 +52,8 @@ class SigninFragment : Fragment(), OnClickListener {
         }
         signinViewModel?.showProgress?.observe(viewLifecycleOwner) {
             if (it == true)
-                progressBarLoader?.show()
-            else progressBarLoader?.dismiss()
+                showProgressLoading()
+            else hideProgressLoading()
         }
     }
 
